@@ -6,6 +6,11 @@
 logs/
 lerna-debug.log*
 
+#node_modules
+backend/node_modules/
+mobile/node_modules/
+
+
 # OS-specific
 .DS_Store
 Thumbs.db
