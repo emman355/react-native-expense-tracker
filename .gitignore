@@ -11,6 +11,9 @@ backend/node_modules/
 mobile/node_modules/
 
 
+#env
+.env*.local
+
 # OS-specific
 .DS_Store
 Thumbs.db
