@@ -9,3 +9,5 @@ export function formatDate(dateString) {
     day: "numeric",
   });
 }
+
+export const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

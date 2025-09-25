@@ -1,6 +1,8 @@
 // styles/auth.styles.js
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 import { COLORS } from "../../constants/colors";
+
+const { height } = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
   container: {
@@ -9,10 +11,26 @@ export const styles = StyleSheet.create({
     padding: 20,
     justifyContent: "center",
   },
+  scrollContent: {
+    flexGrow: 1,
+    paddingHorizontal: 24,
+    paddingTop: 40,
+  },
+  keyboardView: {
+    flex: 1,
+  },
+  formContainer: {
+    flex: 1,
+  },
+  imageContainer: {
+    height: height * 0.4,
+    marginBottom: 30,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   illustration: {
-    width: "100%",
-    height: 310,
-    resizeMode: "contain",
+    width: 320,
+    height: 320,
   },
   title: {
     fontSize: 32,
