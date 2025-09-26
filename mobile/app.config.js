@@ -3,7 +3,7 @@ import "dotenv/config"
 export default {
   expo: {
     name: "expense-tracker",
-    slug: "expense-tracker",
+    slug: "expense-tracker-app",
     version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/images/expense-tracker-icon.png",
