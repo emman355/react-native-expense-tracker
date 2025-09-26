@@ -1,12 +1,10 @@
 import { useState } from 'react'
 import {
   KeyboardAvoidingView,
-  ScrollView,
   Text,
   TextInput,
   TouchableOpacity,
   View,
-  Platform,
 } from 'react-native'
 import { useSignUp } from '@clerk/clerk-expo'
 import { useRouter } from 'expo-router'
@@ -18,8 +16,8 @@ import { isIOS } from "../../constants/platform"
 import { useHeaderHeight } from '@react-navigation/elements'
 
 // Only import if not web
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { emailRegex } from '../../lib/utils';
+import AuthWrapper from '../../components/AuthWrapper';
 
 export default function SignUpScreen() {
   const { isLoaded, signUp, setActive } = useSignUp()
@@ -40,7 +38,6 @@ export default function SignUpScreen() {
     }
 
     // simple regex for email validation
-
     if (!emailRegex.test(emailAddress)) {
       setError("Please enter a valid email address!");
       return;
@@ -110,39 +107,13 @@ export default function SignUpScreen() {
     )
   }
 
-  // Wrapper that switches between web and mobile
-  const Wrapper = ({ children }) => {
-    if (Platform.OS === "web") {
-      return (
-        <ScrollView
-          contentContainerStyle={styles.scrollContent}
-          keyboardShouldPersistTaps="handled"
-          showsVerticalScrollIndicator={false}
-        >
-          {children}
-        </ScrollView>
-      )
-    }
-
-    return (
-      <KeyboardAwareScrollView
-        contentContainerStyle={styles.scrollContent}
-        enableOnAndroid
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={false}
-      >
-        {children}
-      </KeyboardAwareScrollView>
-    )
-  }
-
   return (
     <KeyboardAvoidingView
       behavior={isIOS ? "padding" : "height"}
       keyboardVerticalOffset={isIOS ? 64 : height}
       style={styles.keyboardView}
     >
-      <Wrapper>
+      <AuthWrapper>
         {/* IMAGE CONTAINER */}
         <View style={styles.imageContainer}>
           <Image
@@ -192,7 +163,7 @@ export default function SignUpScreen() {
             </TouchableOpacity>
           </View>
         </View>
-      </Wrapper>
+      </AuthWrapper>
     </KeyboardAvoidingView>
   )
 }
