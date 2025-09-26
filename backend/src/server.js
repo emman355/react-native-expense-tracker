@@ -1,6 +1,6 @@
 import express from 'express'
+import cors from "cors";
 import dotenv from 'dotenv'
-import { sql } from './config/db.js';
 import rateLimiter from './middleware/rateLimiter.js';
 import transactionsRoute from "./routes/transactionsRoute.js"
 import { initDB } from './config/db.js'
@@ -10,6 +10,7 @@ dotenv.config()
 const app = express();
 
 // Built-in middleware
+app.use(cors());
 app.use(rateLimiter)
 
 app.use(express.json());
