@@ -5,7 +5,7 @@ import { Alert } from "react-native";
 import { API_URL } from "../constants/constants";
 
 
-export const useTransaction = (userId) => {
+export const useTransactions = (userId) => {
     const [transactions, setTransactions] = useState([]);
     const [summary, setSummary] = useState({
         balance: 0,
