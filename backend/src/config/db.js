@@ -14,9 +14,7 @@ export const initDB = async () => {
             category VARCHAR(255) NOT NULL,
             created_at DATE NOT NULL DEFAULT CURRENT_DATE
         )`
-		console.log("Database initialized succesfully")
 	} catch (error) {
-		console.log("Error initializing DB", error)
 		process.exit(1) // status code 1 means failure, 0 success
 	}
 }

@@ -2,7 +2,7 @@
 
 import { useCallback, useState } from "react";
 import { Alert } from "react-native";
-import { API_URL } from "../constants/constants";
+import { API_URL } from "../constants/api";
 
 
 export const useTransactions = (userId) => {
@@ -22,7 +22,7 @@ export const useTransactions = (userId) => {
             const data = await response.json();
             setTransactions(data);
         } catch (error) {
-            console.log("Error fetching transactions:", error)
+            throw new error("Error fetching transactions:", error)
         }
     }, [userId])
 
@@ -32,7 +32,7 @@ export const useTransactions = (userId) => {
             const data = await response.json();
             setSummary(data);
         } catch (error) {
-            console.log("Error fetching summary:", error)
+            throw new error("Error fetching summary:", error)
         }
     }, [userId])
 
@@ -43,7 +43,7 @@ export const useTransactions = (userId) => {
             // can be run in parallel
             await Promise.all([fetTransactions(), fetchSummary()])
         } catch (error) {
-            console.log("Error loading data:", error)
+            throw new error("Error loading data:", error)
         } finally {
             setIsLoading(false);
         }
@@ -58,8 +58,8 @@ export const useTransactions = (userId) => {
             loadData();
             Alert.alert("Success", "Transaction deleted successfuylly");
         } catch (error) {
-            console.log("Error deleting transactions:", error);
             Alert.alert("Error", error.message);
+            throw new error("Error deleting transactions:", error);
         }
     };
 

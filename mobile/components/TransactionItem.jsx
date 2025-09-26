@@ -17,9 +17,6 @@ const CATEGORY_ICONS = {
 };
 
 export const TransactionItem = ({ item, onDelete }) => {
-  const { category } = item
-  console.log("item", item)
-  console.log("category", capitalizeFirstLetter(category))
   const isIncome = parseFloat(item.amount) > 0;
   const iconName = CATEGORY_ICONS[capitalizeFirstLetter(item.category)] || "pricetag-outline";
 

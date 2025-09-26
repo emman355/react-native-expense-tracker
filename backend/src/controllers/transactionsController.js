@@ -9,8 +9,7 @@ export async function getTransactionsByUserId(req, res) {
 
         res.status(200).json(transactions)
     } catch (error) {
-        console.log("Error getting the transactions", error);
-        res.status(500).json({ message: "Internal server error!" })
+        res.status(500).json({ message: `Internal server error!` })
     }
 }
 
@@ -31,7 +30,6 @@ export async function createTransaction(req, res) {
 
         res.status(201).json(transaction[0])
     } catch (error) {
-        console.log("Error creating the transaction", error)
         res.status(500).json({ message: "Internal Server Error!" })
     }
 }
@@ -54,7 +52,6 @@ export async function deleteTransaction(req, res) {
 
         res.status(200).json({ message: "Transaction deleted successfully!" })
     } catch (error) {
-        console.log("Error deleting the transaction", error);
         res.status(500).json({ message: "Internal server error!" })
     }
 }
@@ -81,7 +78,6 @@ export async function getTransactionSummary(req, res) {
             expenses: expensesResult[0].expenses,
         })
     } catch (error) {
-        console.log("Error Getting the summary", error);
         res.status(500).json({ message: "Internal server error!" })
     }
 }

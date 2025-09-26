@@ -1,9 +1,9 @@
 import { useUser } from "@clerk/clerk-expo";
-import { useRouter } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { Alert, FlatList, Image, RefreshControl, Text, TouchableOpacity, View } from "react-native";
 import { SignOutButton } from "@/components/SignOutButton";
 import { useTransactions } from "../../hooks/useTransactions";
-import { useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import PageLoader from "../../components/PageLoader";
 import { styles } from "../../assets/styles/home.styles";
 import { Ionicons } from "@expo/vector-icons";
@@ -26,9 +26,17 @@ export default function Page() {
     setRefreshing(false);
   };
 
-  useEffect(() => {
-    loadData();
-  }, [loadData]);
+  useFocusEffect(
+    useCallback(() => {
+      let isActive = true;
+      if (isActive) {
+        loadData();
+      }
+      return () => {
+        isActive = false;
+      };
+    }, [loadData])
+  );
 
   const handleDelete = (id) => {
     Alert.alert("Delete Transaction", "Are you sure you want to delete this transaction?", [
