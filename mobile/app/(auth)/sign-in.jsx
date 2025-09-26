@@ -66,7 +66,7 @@ export default function Page() {
   return (
     <KeyboardAvoidingView
       behavior={isIOS ? "padding" : "height"}
-      keyboardVerticalOffset={isIOS ? 64 : height}
+      keyboardVerticalOffset={isIOS ? 20 : height}
       style={styles.keyboardView}
     >
       <AuthWrapper>
@@ -123,6 +123,5 @@ export default function Page() {
         </View>
       </AuthWrapper>
     </KeyboardAvoidingView>
-
   )
 }

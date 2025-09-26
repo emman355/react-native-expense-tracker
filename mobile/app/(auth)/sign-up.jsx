@@ -110,7 +110,7 @@ export default function SignUpScreen() {
   return (
     <KeyboardAvoidingView
       behavior={isIOS ? "padding" : "height"}
-      keyboardVerticalOffset={isIOS ? 64 : height}
+      keyboardVerticalOffset={isIOS ? 20 : height}
       style={styles.keyboardView}
     >
       <AuthWrapper>
