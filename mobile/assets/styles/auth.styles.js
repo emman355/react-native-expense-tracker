@@ -5,6 +5,34 @@ import { COLORS } from "../../constants/colors";
 const { height } = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
+  googleButtonContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  googleLogo: {
+    width: 24,
+    height: 24,
+    marginRight: 10,
+  },
+  googleButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: COLORS.white, // White background
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 12,
+    shadowColor: COLORS.shadow,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.10,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  googleButtonText: {
+    marginInlineStart: 10,
+    color: COLORS.text, // Black text
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
   container: {
     flex: 1,
     backgroundColor: COLORS.background,
@@ -59,6 +87,11 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 10,
     marginBottom: 20,
+    shadowColor: COLORS.shadow,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   buttonText: {
     color: COLORS.white,
