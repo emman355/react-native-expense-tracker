@@ -15,6 +15,9 @@ mobile/node_modules/
 backend/.env
 mobile/.env
 
+#iphone tester's udids
+mobile/testers.udids
+
 
 # OS-specific
 .DS_Store
