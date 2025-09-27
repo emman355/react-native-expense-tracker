@@ -14,6 +14,7 @@ mobile/node_modules/
 #env
 backend/.env
 mobile/.env
+mobile/UsersEmman.androiddebug.keystore
 
 #iphone tester's udids
 mobile/testers.udids
