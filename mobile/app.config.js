@@ -7,7 +7,7 @@ export default {
     version: "1.0.0",
     orientation: "portrait",
     icon: "./assets/images/expense-tracker-icon.png",
-    scheme: "mobile",
+    scheme: "expensetracker",
     userInterfaceStyle: "automatic",
     newArchEnabled: true,
     ios: {
@@ -41,9 +41,9 @@ export default {
           image: "./assets/images/expense-tracker-icon.png",
           imageWidth: 200,
           resizeMode: "contain",
-          backgroundColor: "#ffffff",
+          backgroundColor: "#E6F4FE",
           dark: {
-            backgroundColor: "#000000",
+            backgroundColor: "#E6F4FE",
           },
         },
       ],
