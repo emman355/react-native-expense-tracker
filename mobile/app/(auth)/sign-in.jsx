@@ -51,7 +51,6 @@ export default function Page() {
         // For more info, see https://docs.expo.dev/versions/latest/sdk/auth-session/#authsessionmakeredirecturioptions
         redirectUrl: AuthSession.makeRedirectUri({
           scheme: 'expensetracker', // match with app.json scheme
-          path: 'oauthredirect',     // optional but clearer
         }),
       })
 
