@@ -44,8 +44,8 @@ export default function Page() {
   const handleGoogleSignIn = useCallback(async () => {
     try {
       // Start the authentication process by calling `startSSOFlow()`
-      const { createdSessionId, setActive } = await startSSOFlow({
-        strategy: 'oauth_google',
+      const { createdSessionId, setActive: setSSOActive } = await startSSOFlow({
+        strategy: 'oauth_custom_google',
         // For web, defaults to current path
         // For native, must pass a scheme, like AuthSession.makeRedirectUri({ scheme, path })
         // For more info, see https://docs.expo.dev/versions/latest/sdk/auth-session/#authsessionmakeredirecturioptions
@@ -56,7 +56,7 @@ export default function Page() {
 
       // If sign in was successful, set the active session
       if (createdSessionId) {
-        setActive({
+        setSSOActive({
           session: createdSessionId,
           navigate: async ({ session }) => {
             if (session?.currentTask) {
@@ -65,8 +65,7 @@ export default function Page() {
               console.log(session?.currentTask)
               return
             }
-
-            router.push('/')
+            router.replace('/')
           },
         })
       } else {
