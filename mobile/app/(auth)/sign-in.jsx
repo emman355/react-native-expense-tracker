@@ -1,10 +1,10 @@
-import { useSignIn, useSSO } from '@clerk/clerk-expo'
+import { useSignIn, useOAuth } from '@clerk/clerk-expo'
 import { Link, useRouter } from 'expo-router'
 import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { useCallback, useEffect, useState } from 'react'
 import { emailRegex } from '../../lib/utils'
 import * as WebBrowser from 'expo-web-browser'
-import * as AuthSession from 'expo-auth-session'
+// import * as AuthSession from 'expo-auth-session'
 import AuthWrapper from '../../components/AuthWrapper'
 import { isAndroid, isIOS } from '../../constants/platform'
 import { useHeaderHeight } from '@react-navigation/elements'
@@ -27,6 +27,9 @@ export const useWarmUpBrowser = () => {
   }, [])
 }
 
+// Handle any pending authentication sessions
+WebBrowser.maybeCompleteAuthSession()
+
 export default function Page() {
   useWarmUpBrowser()
   const { signIn, setActive, isLoaded } = useSignIn()
@@ -38,49 +41,31 @@ export default function Page() {
   const [error, setError] = useState('')
 
 
-  // Use the `useSSO()` hook to access the `startSSOFlow()` method
-  const { startSSOFlow } = useSSO()
+  // Use the `useOAuth()` hook to access the `startOAuthFlow()` method
+  // @ts-ignore – safe: Clerk v2.15.2 still uses this API
+  const { startOAuthFlow } = useOAuth({ strategy: 'oauth_custom_google' })
+
 
   const handleGoogleSignIn = useCallback(async () => {
     try {
-      // Start the authentication process by calling `startSSOFlow()`
-      const { createdSessionId, setActive: setSSOActive } = await startSSOFlow({
-        strategy: 'oauth_custom_google',
-        // For web, defaults to current path
-        // For native, must pass a scheme, like AuthSession.makeRedirectUri({ scheme, path })
-        // For more info, see https://docs.expo.dev/versions/latest/sdk/auth-session/#authsessionmakeredirecturioptions
-        redirectUrl: AuthSession.makeRedirectUri({
-          scheme: 'expensetracker', // match with app.json scheme
-        }),
-      })
+      // Start the authentication process by calling `startOAuthFlow()`
+      const { createdSessionId, setActive: setOAuthActive } = await startOAuthFlow()
 
       // If sign in was successful, set the active session
       if (createdSessionId) {
-        setSSOActive({
-          session: createdSessionId,
-          navigate: async ({ session }) => {
-            if (session?.currentTask) {
-              // Check for tasks and navigate to custom UI to help users resolve them
-              // See https://clerk.com/docs/guides/development/custom-flows/overview#session-tasks
-              console.log(session?.currentTask)
-              return
-            }
-            router.replace('/')
-          },
-        })
+        await setOAuthActive({ session: createdSessionId })
+        router.replace('/')
       } else {
+        console.log('No session created — maybe MFA required or incomplete sign-in.')
         // If there is no `createdSessionId`,
         // there are missing requirements, such as MFA
-        // Use the `signIn` or `signUp` returned from `startSSOFlow`
-        // to handle next steps
       }
     } catch (err) {
       // See https://clerk.com/docs/guides/development/custom-flows/error-handling
       // for more info on error handling
       console.error(JSON.stringify(err, null, 2))
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [startOAuthFlow, router])
 
   // Handle the submission of the sign-in form
   const onSignInPress = async () => {
@@ -124,9 +109,6 @@ export default function Page() {
       setError(err.errors[0].message || "Something went wrong. Please try again.");
     }
   }
-
-  // Handle any pending authentication sessions
-  WebBrowser.maybeCompleteAuthSession()
 
   return (
     <KeyboardAvoidingView
