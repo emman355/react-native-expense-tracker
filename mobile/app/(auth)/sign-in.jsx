@@ -4,7 +4,7 @@ import { KeyboardAvoidingView, Text, TextInput, TouchableOpacity, View } from 'r
 import { useCallback, useEffect, useState } from 'react'
 import { emailRegex } from '../../lib/utils'
 import * as WebBrowser from 'expo-web-browser'
-// import * as AuthSession from 'expo-auth-session'
+import * as AuthSession from 'expo-auth-session'
 import AuthWrapper from '../../components/AuthWrapper'
 import { isAndroid, isIOS } from '../../constants/platform'
 import { useHeaderHeight } from '@react-navigation/elements'
@@ -43,7 +43,13 @@ export default function Page() {
 
   // Use the `useOAuth()` hook to access the `startOAuthFlow()` method
   // @ts-ignore – safe: Clerk v2.15.2 still uses this API
-  const { startOAuthFlow } = useOAuth({ strategy: 'oauth_custom_google' })
+  const { startOAuthFlow } = useOAuth({
+    strategy: 'oauth_custom_google',
+    redirectUrl: AuthSession.makeRedirectUri({
+      scheme: 'expensetracker', // match with app.json scheme
+      path: '/',
+    }),
+  })
 
 
   const handleGoogleSignIn = useCallback(async () => {
